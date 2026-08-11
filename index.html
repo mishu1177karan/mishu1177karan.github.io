@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mishu Kumar — Catastrophe Analytics &amp; Quantitative Risk</title>
+<meta name="description" content="Reinsurance catastrophe analytics and quantitative risk modelling. OasisLMF cat model runs, OEP/AEP curves, excess-of-loss pricing and SA-CCR counterparty exposure. PGDM candidate, National Insurance Academy, Pune.">
+<meta name="theme-color" content="#0F4C5C">
+<meta property="og:title" content="Mishu Kumar — Catastrophe Analytics &amp; Quantitative Risk">
+<meta property="og:description" content="Catastrophe loss modelling, reinsurance pricing and Basel counterparty credit exposure. PGDM candidate, National Insurance Academy, Pune.">
+<meta property="og:type" content="profile">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FFFFFF;
+    --surface:#F5F7F8;
+    --ink:#10161C;
+    --body:#333D47;
+    --muted:#616D79;
+    --rule:#DDE3E7;
+    --accent:#0F4C5C;
+    --accent-soft:#E4EEF0;
+    --measure:820px;
+  }
+  html[data-theme="dark"]{
+    --paper:#0F1419;
+    --surface:#161C23;
+    --ink:#EDF1F3;
+    --body:#C2CBD3;
+    --muted:#8B98A4;
+    --rule:#242C35;
+    --accent:#6FB6C4;
+    --accent-soft:#17262C;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:72px}
+  body{
+    margin:0;background:var(--paper);color:var(--body);
+    font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+    font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{color:var(--ink);font-family:"IBM Plex Serif",Georgia,serif;font-weight:500;line-height:1.3}
+  a{color:var(--accent);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+  a:hover{text-decoration-thickness:2px}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:3px}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+  .wrap{max-width:var(--measure);margin:0 auto;padding:0 24px}
+
+  .skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#fff;padding:10px 16px;z-index:50}
+  .skip:focus{left:0}
+
+  .bar{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--rule)}
+  .bar .wrap{display:flex;align-items:center;gap:20px;min-height:60px;padding-top:8px;padding-bottom:8px;flex-wrap:wrap}
+  .wordmark{font-family:"IBM Plex Serif",serif;font-size:17px;font-weight:600;color:var(--ink);text-decoration:none;letter-spacing:.01em}
+  .bar nav{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
+  .bar nav a{font-size:14px;color:var(--muted);text-decoration:none}
+  .bar nav a:hover{color:var(--accent);text-decoration:underline}
+  .theme{background:none;border:1px solid var(--rule);border-radius:4px;padding:5px 9px;color:var(--muted);cursor:pointer;font:inherit;font-size:13px;line-height:1}
+  .theme:hover{color:var(--accent);border-color:var(--accent)}
+
+  .hero{padding:56px 0 40px;border-bottom:1px solid var(--rule)}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
+  .hero h1{font-size:clamp(32px,6vw,44px);margin:0 0 10px;letter-spacing:-.015em}
+  .hero .role{font-size:19px;color:var(--ink);margin:0 0 18px;max-width:34em}
+  .facts{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:14.5px;color:var(--muted);margin:0 0 26px;padding:0;list-style:none}
+  .facts li{display:flex;gap:8px;align-items:baseline}
+  .facts .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+  .actions{display:flex;flex-wrap:wrap;gap:10px}
+  .btn{display:inline-block;padding:9px 18px;border-radius:4px;font-size:14.5px;text-decoration:none;border:1px solid var(--rule);color:var(--ink);background:var(--paper)}
+  .btn:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  html[data-theme="dark"] .btn.primary{color:#0F1419}
+  .btn.primary:hover{opacity:.9}
+
+  main section{padding:44px 0;border-bottom:1px solid var(--rule)}
+  main section:last-of-type{border-bottom:0}
+  .h2{font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 24px}
+  .lead{font-size:17.5px;max-width:38em;margin:0 0 16px}
+  p{max-width:40em}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:5px;overflow:hidden}
+  .cell{background:var(--paper);padding:20px}
+  .cell h3{font-size:14px;font-family:"IBM Plex Mono",monospace;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+  .cell ul{margin:0;padding-left:17px;font-size:15px;color:var(--body)}
+  .cell li{margin-bottom:5px}
+
+  .entry{display:grid;grid-template-columns:150px 1fr;gap:26px;padding:24px 0;border-top:1px solid var(--rule)}
+  .entry:first-of-type{border-top:0;padding-top:0}
+  .when{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted);padding-top:3px}
+  .when span{display:block;color:var(--accent);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
+  .entry h3{font-size:18px;margin:0 0 3px}
+  .entry .org{font-size:15px;color:var(--muted);margin:0 0 12px}
+  .entry ul{margin:0;padding-left:18px;font-size:15.5px}
+  .entry li{margin-bottom:7px}
+  .entry li:last-child{margin-bottom:0}
+
+  .stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;padding:0;list-style:none}
+  .stack li{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.04em;color:var(--accent);background:var(--accent-soft);border-radius:3px;padding:3px 9px}
+
+  .repo{display:inline-block;margin-top:12px;font-size:14px}
+
+  .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px}
+  .two h3{font-size:16px;margin:0 0 8px}
+  .two ul{margin:0;padding-left:18px;font-size:15.5px}
+  .two li{margin-bottom:6px}
+
+  .contact{background:var(--surface);border:1px solid var(--rule);border-radius:5px;padding:28px}
+  .contact p{margin:0 0 18px}
+
+  footer{padding:26px 0 44px;font-size:13.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;border-top:1px solid var(--rule)}
+  footer a{color:var(--muted);text-decoration:none}
+  footer a:hover{color:var(--accent);text-decoration:underline}
+  footer .right{margin-left:auto}
+
+  @media (max-width:640px){
+    .entry{grid-template-columns:1fr;gap:6px}
+    .when{padding-top:0}
+    .when span{display:inline;margin-left:10px}
+    .bar nav{gap:14px;margin-left:0;width:100%;order:3}
+    .theme{margin-left:auto}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+  @media print{
+    .bar,.actions,.theme,footer .right{display:none!important}
+    body{font-size:11pt;color:#000;background:#fff}
+    main section{padding:14pt 0;break-inside:avoid}
+    a{color:#000;text-decoration:none}
+    .stack li{border:1px solid #999;background:none;color:#000}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="wordmark" href="#top">Mishu Kumar</a>
+    <nav aria-label="Sections">
+      <a href="#profile">Profile</a>
+      <a href="#expertise">Expertise</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#writing">Writing</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="theme" id="theme" aria-label="Switch to dark theme">Dark</button>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap" id="top">
+
+  <section class="hero" aria-labelledby="name">
+    <p class="eyebrow">Catastrophe Analytics &amp; Quantitative Risk Modelling</p>
+    <h1 id="name">Mishu Kumar</h1>
+    <p class="role">I model natural catastrophe and counterparty credit risk — running open-source cat models end to end, pricing excess-of-loss layers off simulated event sets, and building Basel exposure engines from the regulation up.</p>
+    <ul class="facts">
+      <li><span class="k">Programme</span> PGDM, Insurance &amp; Risk Management</li>
+      <li><span class="k">Institute</span> National Insurance Academy, Pune</li>
+      <li><span class="k">Graduating</span> 2027</li>
+      <li><span class="k">Seeking</span> Reinsurance analytics · Catastrophe modelling · Quantitative risk</li>
+    </ul>
+    <div class="actions">
+      <a class="btn primary" href="cv.pdf">Download CV (PDF)</a>
+      <a class="btn" href="mailto:mishu1177karan@gmail.com">Email</a>
+      <a class="btn" href="https://www.linkedin.com/in/mishu-kumar-gupta-937399227/">LinkedIn</a>
+      <a class="btn" href="https://github.com/mishu1177karan">GitHub</a>
+    </div>
+  </section>
+
+  <section id="profile" aria-labelledby="h-profile">
+    <h2 class="h2" id="h-profile">Profile</h2>
+    <p class="lead">A PGDM candidate in Insurance and Risk Management, working towards reinsurance catastrophe analytics — pairing the insurance training with the quantitative modelling needed to price and manage natural catastrophe risk.</p>
+    <p>My approach is to implement rather than summarise. Where a regulation specifies a capital calculation, I build it cell by cell and reconcile the output; where a paper specifies a stochastic process, I simulate it and test it against the analytical solution. That has produced a full OasisLMF catastrophe model run with interpreted OEP and AEP curves, an Excel excess-of-loss financial module over a 1,000-year event set, and a 12-trade SA-CCR netting engine returning exposure at default of $23.5M on a $13.9M add-on.</p>
+    <p>Alongside this sits eleven months of internship experience, most recently in the second line of defence at a life insurer, where the work ran from cyber gap assessments to CRO-office risk reporting.</p>
+  </section>
+
+  <section id="expertise" aria-labelledby="h-expertise">
+    <h2 class="h2" id="h-expertise">Core competencies</h2>
+    <div class="grid">
+      <div class="cell">
+        <h3>Catastrophe &amp; reinsurance</h3>
+        <ul>
+          <li>OasisLMF / PiWind end-to-end model runs</li>
+          <li>Hazard, exposure, vulnerability and financial modules</li>
+          <li>EP curves — OEP and AEP interpretation</li>
+          <li>Excess-of-loss structures, per-occurrence and aggregate</li>
+          <li>Layer expected loss and rate on line</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h3>Quantitative methods</h3>
+        <ul>
+          <li>Monte Carlo simulation</li>
+          <li>Geometric Brownian motion with Itô drift correction</li>
+          <li>Vasicek short rate, Euler discretisation</li>
+          <li>Validation against closed-form solutions</li>
+          <li>Markov chain transition modelling</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h3>Capital &amp; risk frameworks</h3>
+        <ul>
+          <li>SA-CCR (BCBS 279) exposure at default</li>
+          <li>Supervisory deltas and hedging-set aggregation</li>
+          <li>Enterprise risk governance, ERMC and SteerCo reporting</li>
+          <li>IRDAI cybersecurity guidelines</li>
+          <li>Control mapping and compliance tracking</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h3>Technical</h3>
+        <ul>
+          <li>Advanced Excel modelling</li>
+          <li>Python — NumPy, pandas</li>
+          <li>Power Query and dashboard build</li>
+          <li>Git and version-controlled models</li>
+          <li>Business research and questionnaire design</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" aria-labelledby="h-experience">
+    <h2 class="h2" id="h-experience">Experience</h2>
+
+    <article class="entry">
+      <div class="when">May – Jul 2026<span>Gurugram</span></div>
+      <div>
+        <h3>Risk Management Intern</h3>
+        <p class="org">Aviva Life Insurance Company India — Enterprise Risk Management, Office of the Chief Risk Officer</p>
+        <ul>
+          <li>Built a Power Query dashboard prototype consolidating risk data for CRO-office reporting, which led the CISO to commission a full dashboard project.</li>
+          <li>Built three compliance trackers covering over 40 controls, and conducted two IRDAI cyber gap assessments.</li>
+          <li>Supported ERMC and Steering Committee governance reporting cycles.</li>
+          <li>Created a ten-edition risk newsletter, approved by the CRO and CEO for organisation-wide circulation.</li>
+        </ul>
+        <ul class="stack">
+          <li>Enterprise risk</li><li>Cyber risk</li><li>IRDAI</li><li>Power Query</li><li>Governance</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="when">Mar – Apr 2024<span>Remote</span></div>
+      <div>
+        <h3>AI-Powered VC Deal Sourcing Extern</h3>
+        <p class="org">Extern &amp; IgniteXL Ventures</p>
+        <ul>
+          <li>Researched over 30 early-stage companies across the health and wellness sectors.</li>
+          <li>Developed an investment thesis and prepared pitch decks to support the sourcing decision.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="when">Feb – Sep 2023<span>Sweden</span></div>
+      <div>
+        <h3>Research and Administrative Intern</h3>
+        <p class="org">University of Gothenburg</p>
+        <ul>
+          <li>Supported a research project under Prof. Dr Ravi Kant Pathak, coordinating project operations.</li>
+          <li>Designed and built an experimental ozone generator at a tenth of the standard cost, with improved efficiency.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <section id="projects" aria-labelledby="h-projects">
+    <h2 class="h2" id="h-projects">Quantitative projects</h2>
+    <p class="lead">Self-directed models, built from the source regulation or paper rather than from a template. Workbooks, code and validation notes are available on request.</p>
+
+    <article class="entry">
+      <div class="when">2026<span>OasisLMF · Excel</span></div>
+      <div>
+        <h3>Catastrophe loss modelling</h3>
+        <p class="org">Open-source cat model run and reinsurance financial module</p>
+        <ul>
+          <li>Ran an open-source catastrophe model end to end across the hazard, exposure, vulnerability and financial modules, generating and interpreting OEP and AEP curves and per-contract expected loss for a sample portfolio.</li>
+          <li>Built an Excel catastrophe financial module applying excess-of-loss terms to a 1,000-year simulated event set, deriving the exceedance probability curves, layer expected loss and rate on line.</li>
+        </ul>
+        <ul class="stack"><li>Cat modelling</li><li>Reinsurance pricing</li><li>EP curves</li><li>OasisLMF</li></ul>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="when">2026<span>Excel</span></div>
+      <div>
+        <h3>SA-CCR counterparty credit exposure model</h3>
+        <p class="org">Standardised Approach for Counterparty Credit Risk — BCBS 279</p>
+        <ul>
+          <li>Built a 12-trade netting set engine across interest rate, foreign exchange, equity and commodity asset classes, with supervisory deltas, maturity factors and correlation-based hedging-set aggregation.</li>
+          <li>Returns exposure at default of $23.5M under α (RC + PFE) on a $13.9M aggregate add-on.</li>
+        </ul>
+        <ul class="stack"><li>Counterparty credit</li><li>Basel</li><li>Derivatives</li></ul>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="when">2026<span>Excel</span></div>
+      <div>
+        <h3>Stochastic simulation models — Vasicek and GBM</h3>
+        <p class="org">Short-rate and asset path simulation</p>
+        <ul>
+          <li>Simulated mean-reverting short-rate paths via Euler discretisation of dr = a(b−r)dt + σdW, validated against the closed-form solution.</li>
+          <li>Simulated geometric Brownian motion asset paths incorporating the Itô drift correction, applied to Monte Carlo valuation of a guaranteed minimum maturity benefit and benchmarked against Black–Scholes.</li>
+        </ul>
+        <ul class="stack"><li>Interest rate risk</li><li>Monte Carlo</li><li>Derivative valuation</li></ul>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="when">2026<span>Further work</span></div>
+      <div>
+        <h3>Additional models</h3>
+        <ul>
+          <li>Mortgage credit Markov chain — a five-sheet transition model across current, delinquent, default and prepaid states, with scenario testing on transition intensities.</li>
+          <li>Characteristic-driven dynamic factor model — a research paper reimplemented in Python as an installable package.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <section id="education" aria-labelledby="h-education">
+    <h2 class="h2" id="h-education">Education &amp; certifications</h2>
+    <div class="two">
+      <div>
+        <h3>Education</h3>
+        <ul>
+          <li><strong>PGDM, Insurance &amp; Risk Management</strong> — National Insurance Academy, Pune (2027)</li>
+          <li><strong>BMS, Finance</strong> — University of Delhi (2024)</li>
+          <li>Sainik School Tilaiya</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Certifications</h3>
+        <ul>
+          <li>Licentiate, Insurance Institute of India</li>
+          <li>Actuarial Common Entrance Test (ACET), cleared</li>
+          <li>Research Analyst — SEBI (NISM)</li>
+          <li>Investment Analysis and Portfolio Management — NSE (NCFM)</li>
+          <li>Financial Engineering and Risk Management — Columbia University</li>
+          <li>Financial Globalization and Capital Flows — ADBI</li>
+          <li>Countering Trade-Based Money Laundering — World Bank Group</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="writing" aria-labelledby="h-writing">
+    <h2 class="h2" id="h-writing">Writing</h2>
+    <p class="lead">I write about financial infrastructure and geopolitics at <a href="https://geopoliticin.wordpress.com/">Geopolitics and the Influencing Issue</a>.</p>
+
+    <article class="entry">
+      <div class="when">Oct 2025<span>Blog</span></div>
+      <div>
+        <h3><a href="https://geopoliticin.wordpress.com/2025/10/20/will-stablecoins-become-obsolete-project-agora-type-digital-infrastructure-by-bis-might-redefine-cross-border-payments/">Will stablecoins become obsolete? Project Agorá and the future of cross-border payments</a></h3>
+        <p>On the tension between the settlement convenience of stablecoins and the loss of monetary control it implies for central banks — and what the BIS tokenisation experiment is designed to answer.</p>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="when">2026<span>LinkedIn</span></div>
+      <div>
+        <h3><a href="https://www.linkedin.com/in/mishu-kumar-gupta-937399227/recent-activity/articles/">Frontier AI and cyber risk: reading BIS Bulletin No. 129</a></h3>
+        <p>An assessment of how capable AI models change the financial sector's threat surface, and where the Bulletin's argument rests on assumptions worth testing.</p>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="when">Sep 2022<span>Blog</span></div>
+      <div>
+        <h3><a href="https://geopoliticin.wordpress.com/2022/09/25/the-social-and-economic-cost-of-the-russian-invasion-2/">The social and economic cost of the Russian invasion</a></h3>
+        <p>How a conflict in one region transmits through a globalised economy, and who ends up bearing the cost.</p>
+      </div>
+    </article>
+  </section>
+
+  <section id="recognition" aria-labelledby="h-recognition">
+    <h2 class="h2" id="h-recognition">Recognition &amp; activities</h2>
+    <div class="two">
+      <div>
+        <h3>Awards</h3>
+        <ul>
+          <li>Bronze Award, Queen's Commonwealth Essay Competition</li>
+          <li>First place, KAPITALISTA mock investing competition</li>
+          <li>Semi-finalist, NASA Scientist for a Day</li>
+          <li>Best Performer, International Space Science Essay Competition</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Beyond work</h3>
+        <ul>
+          <li>Vice-Captain, inter-house football and hockey championships</li>
+          <li>Volunteer with WWF India — Cyclothon, Bird Festival and Earth Hour</li>
+          <li>Volunteer with Hamari Pahchan NGO — outreach and fundraising</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="h-contact">
+    <h2 class="h2" id="h-contact">Contact</h2>
+    <div class="contact">
+      <p>I am in the National Insurance Academy placement cycle and open to conversations about catastrophe analytics, reinsurance pricing and quantitative risk roles. Model workbooks and validation notes are available on request.</p>
+      <div class="actions">
+        <a class="btn primary" href="mailto:mishu1177karan@gmail.com">mishu1177karan@gmail.com</a>
+        <a class="btn" href="https://www.linkedin.com/in/mishu-kumar-gupta-937399227/">LinkedIn</a>
+        <a class="btn" href="https://github.com/mishu1177karan">GitHub</a>
+        <a class="btn" href="https://x.com/mishu7074">X</a>
+        <a class="btn" href="https://geopoliticin.wordpress.com/">Blog</a>
+        <a class="btn" href="cv.pdf">CV (PDF)</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer class="wrap">
+  <div>© <span id="year">2026</span> Mishu Kumar · Pune, India</div>
+  <div class="right"><a href="#top">Back to top ↑</a></div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('theme'), saved=null;
+  try{saved=localStorage.getItem('theme');}catch(e){}
+  set(saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark':'light'));
+  btn.addEventListener('click',function(){
+    set(root.getAttribute('data-theme')==='dark'?'light':'dark');
+  });
+  function set(m){
+    root.setAttribute('data-theme',m);
+    btn.textContent = m==='dark' ? 'Light' : 'Dark';
+    btn.setAttribute('aria-label', m==='dark' ? 'Switch to light theme':'Switch to dark theme');
+    try{localStorage.setItem('theme',m);}catch(e){}
+  }
+  document.getElementById('year').textContent=new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
