@@ -271,7 +271,7 @@
 
   <section id="projects" aria-labelledby="h-projects">
     <h2 class="h2" id="h-projects">Quantitative projects</h2>
-    <p class="lead">Self-directed models, built from the source regulation or paper rather than from a template. Workbooks, code and validation notes are available on request.</p>
+    <p class="lead">Self-directed models, built from the source regulation or paper rather than from a template. The Excel workbooks for the models below are published on GitHub — <a href="https://github.com/mishu1177karan/finance-models">github.com/mishu1177karan/finance-models</a> — with a README setting out the method, parameters and calculation chain for each. Validation notes available on request.</p>
 
     <article class="entry">
       <div class="when">2026<span>OasisLMF · Excel</span></div>
@@ -294,6 +294,7 @@
         <ul>
           <li>Built a 12-trade netting set engine across interest rate, foreign exchange, equity and commodity asset classes, with supervisory deltas, maturity factors and correlation-based hedging-set aggregation.</li>
           <li>Returns exposure at default of $23.5M under α (RC + PFE) on a $13.9M aggregate add-on.</li>
+          <li>Workbook: <a href="https://github.com/mishu1177karan/finance-models/blob/main/SA-CCR%20Model.xlsx">SA-CCR Model.xlsx</a> — supervisory parameter table, trade-level engine and hedging-set aggregation are all live formulas.</li>
         </ul>
         <ul class="stack"><li>Counterparty credit</li><li>Basel</li><li>Derivatives</li></ul>
       </div>
@@ -307,6 +308,7 @@
         <ul>
           <li>Simulated mean-reverting short-rate paths via Euler discretisation of dr = a(b−r)dt + σdW, validated against the closed-form solution.</li>
           <li>Simulated geometric Brownian motion asset paths incorporating the Itô drift correction, applied to Monte Carlo valuation of a guaranteed minimum maturity benefit and benchmarked against Black–Scholes.</li>
+          <li>Workbooks: <a href="https://github.com/mishu1177karan/finance-models/blob/main/Vasicek%20interest%20rate%20model.xlsx">Vasicek interest rate model.xlsx</a> (10 parallel paths, editable mean-reversion and volatility inputs) and <a href="https://github.com/mishu1177karan/finance-models/blob/main/Brownian%20Motion%20Excel.xlsx">Brownian Motion Excel.xlsx</a> (the underlying Wiener process built at three step sizes, demonstrating zero start, independent increments and variance dt).</li>
         </ul>
         <ul class="stack"><li>Interest rate risk</li><li>Monte Carlo</li><li>Derivative valuation</li></ul>
       </div>
