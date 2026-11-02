@@ -22,7 +22,7 @@
   .wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px}
 
   /* Header */
-  header{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+  header{position:fixed;inset:0 0 auto 0;z-index:50;transition:border-color .3s;border-bottom:1px solid transparent;background:#f8f4ec}
   header.solid{background:rgba(248,244,236,.97);border-color:var(--line);backdrop-filter:blur(6px)}
   .nav{display:flex;align-items:center;justify-content:space-between;height:76px}
   .brand{font-family:var(--serif);font-size:22px;letter-spacing:.01em;color:var(--ink);transition:color .3s}
@@ -36,12 +36,12 @@
   .links a:hover::after{width:100%}
 
   /* Hero */
-  .hero{position:relative;min-height:100vh;background:linear-gradient(160deg,#f3ece0 0%,#f8f4ec 60%);color:var(--ink);overflow:hidden;display:flex;align-items:flex-end}
+  .hero{position:relative;min-height:86vh;padding:0;background:linear-gradient(160deg,#f3ece0 0%,#f8f4ec 60%);color:var(--ink);overflow:hidden;display:flex;align-items:center}
   .hero svg.bg{position:absolute;inset:0;width:100%;height:100%;opacity:.7}
   .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(248,244,236,0) 0%,rgba(248,244,236,0) 45%,rgba(248,244,236,.95) 100%)}
-  .hero .wrap{position:relative;z-index:2;padding-bottom:96px;width:100%}
+  .hero .wrap{position:relative;z-index:2;padding:116px 32px 72px;width:100%}
   .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:var(--accent-2)}
-  .hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(44px,7vw,92px);line-height:1.02;letter-spacing:-.015em;margin:22px 0 28px;max-width:14ch}
+  .hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(44px,7vw,92px);line-height:1.02;letter-spacing:-.015em;margin:18px 0 24px;max-width:14ch}
   .hero p{font-size:clamp(17px,1.6vw,20px);font-weight:300;color:var(--muted);max-width:56ch}
   .cta{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap}
   .btn{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:500;padding:15px 28px;border:1px solid rgba(255,255,255,.5);transition:all .25s}
@@ -50,10 +50,10 @@
   .btn.dark.fill{background:var(--night);color:#fff;border-color:var(--night)}
   .btn.dark:hover{background:var(--accent);border-color:var(--accent);color:#fff}
   .btn:hover{background:var(--accent-2);border-color:var(--accent-2);color:var(--night)}
-  .scroll{position:absolute;right:32px;bottom:96px;z-index:2;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);writing-mode:vertical-rl}
+  .scroll{position:absolute;right:32px;bottom:48px;z-index:2;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);writing-mode:vertical-rl}
 
   /* Sections */
-  section{padding:120px 0}
+  section{padding:120px 0;scroll-margin-top:76px}
   .head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:56px;flex-wrap:wrap}
   h2{font-family:var(--serif);font-weight:300;font-size:clamp(34px,4vw,52px);line-height:1.08;letter-spacing:-.01em;max-width:18ch;margin-top:14px}
   .more{font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:10px;border-bottom:1px solid var(--ink);padding-bottom:4px}
@@ -62,7 +62,7 @@
   a:hover .arrow{transform:translateX(4px)}
 
   /* Intro statement */
-  .intro{padding:110px 0 40px}
+  .intro{padding:72px 0 40px}
   .intro p{font-family:var(--serif);font-weight:300;font-size:clamp(24px,2.6vw,34px);line-height:1.35;max-width:30ch;color:var(--ink)}
   .intro p em{font-style:normal;color:var(--accent)}
 
@@ -133,6 +133,7 @@
   @media (max-width:560px){
     .wrap{padding:0 20px}
     section{padding:84px 0}
+    .hero .wrap{padding:130px 20px 64px}
     .stats{grid-template-columns:1fr}
     .stat + .stat{padding-left:0;border-left:0;border-top:1px solid var(--line)}
     .stat{padding-top:28px}
@@ -290,7 +291,7 @@
 <script>
   // Header turns solid after the hero
   const hdr=document.getElementById('top');
-  const onScroll=()=>hdr.classList.toggle('solid',window.scrollY>window.innerHeight*0.75);
+  const onScroll=()=>hdr.classList.toggle('solid',window.scrollY>10);
   addEventListener('scroll',onScroll,{passive:true});onScroll();
 
   // Hurricane-isobar contours in the hero
