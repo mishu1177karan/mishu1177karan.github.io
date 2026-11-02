@@ -74,7 +74,8 @@
   .stat span{display:block;margin-top:12px;font-size:14px;color:var(--muted);max-width:22ch}
 
   /* Cards */
-  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  @media (max-width:1200px){.cards{grid-template-columns:repeat(2,1fr)}}
   .card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);transition:box-shadow .3s,transform .3s}
   .card:hover{box-shadow:0 18px 40px -20px rgba(14,22,32,.35);transform:translateY(-3px)}
   .card .art{aspect-ratio:16/10;background:var(--night-2);position:relative;overflow:hidden}
@@ -203,6 +204,10 @@
       <a class="more" href="https://github.com/mishu1177karan/finance-models">View all on GitHub <span class="arrow">→</span></a>
     </div>
     <div class="cards">
+      <a class="card reveal" href="https://github.com/mishu1177karan/factor-decay">
+        <div class="art"><svg viewBox="0 0 400 250" preserveAspectRatio="none"><rect width="400" height="250" fill="#141e29"/><g stroke="#ffffff" stroke-opacity=".08"><path d="M0 62h400M0 124h400M0 186h400"/></g><g fill="#c8a875"><rect x="70" y="60" width="62" height="190" opacity=".9"/><rect x="169" y="131" width="62" height="119" opacity=".6"/><rect x="268" y="165" width="62" height="85" opacity=".35"/></g><path d="M101 60 L200 131 L299 165" fill="none" stroke="#fff" stroke-opacity=".55" stroke-dasharray="4 4"/></svg></div>
+        <div class="body"><span class="tag">Asset pricing · R</span><h3>Factor decay after publication</h3><p>Replicating McLean &amp; Pontiff across 212 anomalies: long-short returns fall ~55% once the paper is published.</p><span class="more">Learn more <span class="arrow">→</span></span></div>
+      </a>
       <a class="card reveal" href="https://github.com/mishu1177karan/finance-models">
         <div class="art"><svg viewBox="0 0 400 250" preserveAspectRatio="none"><rect width="400" height="250" fill="#16212d"/><g fill="none" stroke="#c8a875" stroke-opacity=".8"><path d="M0 230 C120 228 200 210 260 160 S350 40 400 20"/><path d="M0 238 C140 236 230 222 290 182 S370 80 400 60" stroke-opacity=".45"/></g><g stroke="#ffffff" stroke-opacity=".08"><path d="M0 62h400M0 124h400M0 186h400"/></g></svg></div>
         <div class="body"><span class="tag">Catastrophe</span><h3>Catastrophe loss modelling</h3><p>End-to-end OasisLMF run with interpreted OEP and AEP curves, plus an excess-of-loss financial module.</p><span class="more">Learn more <span class="arrow">→</span></span></div>
