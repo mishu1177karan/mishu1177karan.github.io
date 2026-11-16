@@ -1,10 +1,31 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mishu Kumar — Catastrophe Analytics & Quantitative Risk</title>
-<meta name="description" content="Mishu Kumar — catastrophe analytics, reinsurance and quantitative risk modelling.">
+<meta name="description" content="Mishu Kumar models natural catastrophe and counterparty credit risk: OasisLMF loss runs, a Basel SA-CCR exposure engine, factor-decay research in R and a refinery margin LP.">
+<meta name="author" content="Mishu Kumar">
+<meta name="theme-color" content="#f8f4ec">
+<link rel="canonical" href="https://mishu1177karan.github.io/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mishu Kumar">
+<meta property="og:title" content="Mishu Kumar — Catastrophe Analytics & Quantitative Risk">
+<meta property="og:description" content="Pricing the risks the world can't predict. Catastrophe loss modelling, counterparty credit exposure and asset-pricing research, built from first principles.">
+<meta property="og:url" content="https://mishu1177karan.github.io/">
+<meta property="og:image" content="https://mishu1177karan.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mishu Kumar — Catastrophe Analytics and Quantitative Risk">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mishu Kumar — Catastrophe Analytics & Quantitative Risk">
+<meta name="twitter:description" content="Catastrophe loss modelling, counterparty credit exposure and asset-pricing research, built from first principles.">
+<meta name="twitter:image" content="https://mishu1177karan.github.io/og.png">
+<script>document.documentElement.classList.remove('no-js')</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Mishu Kumar","url":"https://mishu1177karan.github.io/","jobTitle":"PGDM candidate, Insurance & Risk Management","alumniOf":[{"@type":"CollegeOrUniversity","name":"National Insurance Academy, Pune"},{"@type":"CollegeOrUniversity","name":"University of Delhi"}],"knowsAbout":["Catastrophe modelling","Reinsurance","Counterparty credit risk","SA-CCR","Quantitative risk","Asset pricing"],"sameAs":["https://www.linkedin.com/in/mishu-kumar-gupta-937399227/","https://github.com/mishu1177karan","https://geopoliticin.wordpress.com/"]}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400&display=swap" rel="stylesheet">
@@ -19,6 +40,9 @@
   html{scroll-behavior:smooth}
   body{font-family:var(--sans);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;line-height:1.55}
   a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .skip{position:absolute;left:16px;top:-60px;z-index:100;background:var(--night);color:#fff;padding:10px 16px;font-size:14px;transition:top .2s}
+  .skip:focus{top:12px}
   .wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px}
 
   /* Header */
@@ -33,7 +57,13 @@
   header.solid .links{color:var(--ink)}
   .links a{position:relative;padding:6px 0}
   .links a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:currentColor;transition:width .25s}
-  .links a:hover::after{width:100%}
+  .links a:hover::after,.links a.on::after{width:100%}
+  .links a.on{color:var(--accent)}
+  .links a.cv{border:1px solid var(--ink);padding:8px 16px}
+  .links a.cv::after{display:none}
+  .links a.cv:hover{background:var(--night);border-color:var(--night);color:#fff}
+  .links{align-items:center}
+  .menu{display:none;background:none;border:1px solid var(--ink);color:var(--ink);font:500 13px var(--sans);letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;cursor:pointer}
 
   /* Hero */
   .hero{position:relative;min-height:86vh;padding:0;background:linear-gradient(160deg,#f3ece0 0%,#f8f4ec 60%);color:var(--ink);overflow:hidden;display:flex;align-items:center}
@@ -74,8 +104,8 @@
   .stat span{display:block;margin-top:12px;font-size:14px;color:var(--muted);max-width:22ch}
 
   /* Cards */
-  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
-  @media (max-width:1200px){.cards{grid-template-columns:repeat(2,1fr)}}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  @media (max-width:1100px){.cards{grid-template-columns:repeat(2,1fr)}}
   .card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);transition:box-shadow .3s,transform .3s}
   .card:hover{box-shadow:0 18px 40px -20px rgba(14,22,32,.35);transform:translateY(-3px)}
   .card .art{aspect-ratio:16/10;background:var(--night-2);position:relative;overflow:hidden}
@@ -84,6 +114,11 @@
   .tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600}
   .card h3{font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.2;margin:12px 0 12px}
   .card p{font-size:15px;color:var(--muted);flex:1}
+  .kpi{display:flex;align-items:baseline;gap:10px;margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+  .kpi b{font-family:var(--serif);font-weight:400;font-size:26px;line-height:1;letter-spacing:-.01em;white-space:nowrap}
+  .kpi span{font-size:13px;color:var(--muted);line-height:1.35}
+  .tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:40px}
+  .tools span{font-size:13px;padding:7px 14px;border:1px solid var(--line);background:var(--card);color:var(--muted)}
   .card .more{margin-top:26px;align-self:flex-start;border:0;padding:0}
 
   /* Experience */
@@ -119,10 +154,17 @@
 
   /* Reveal */
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
-  .reveal.in{opacity:1;transform:none}
+  .reveal.in,.no-js .reveal{opacity:1;transform:none}
 
   @media (max-width:960px){
-    .links{display:none}
+    .menu{display:block}
+    .links{display:none;position:absolute;left:0;right:0;top:76px;flex-direction:column;align-items:stretch;gap:0;background:var(--paper);border-bottom:1px solid var(--line);padding:8px 32px 20px}
+    .links.open{display:flex}
+    .links a{padding:14px 0;border-bottom:1px solid var(--line);font-size:16px}
+    .links a::after{display:none}
+    .links a.cv{margin-top:16px;text-align:center;padding:14px 16px}
+    .no-js .links{display:flex;position:static;flex-direction:row;flex-wrap:wrap;gap:16px;padding:0;border:0}
+    .no-js .menu{display:none}
     .cards,.insights{grid-template-columns:1fr}
     .insight + .insight{padding-left:0;border-left:0;border-top:1px solid var(--line)}
     .stats{grid-template-columns:1fr 1fr}
@@ -136,28 +178,35 @@
     .wrap{padding:0 20px}
     section{padding:84px 0}
     .hero .wrap{padding:130px 20px 64px}
+    .links{padding:8px 20px 20px}
+    .cta .btn{flex:1 1 100%;justify-content:center}
     .stats{grid-template-columns:1fr}
     .stat + .stat{padding-left:0;border-left:0;border-top:1px solid var(--line)}
     .stat{padding-top:28px}
     .creds li{flex-direction:column;gap:4px}
   }
-  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}.card,.arrow{transition:none}}
+  @media print{header,.scroll,.hero svg.bg,.menu{display:none}.reveal{opacity:1;transform:none}section{padding:32px 0}.hero{min-height:0}.contact{background:#fff;color:#000}.contact h2{color:#000}}
 </style>
 </head>
 <body>
 
+<a class="skip" href="#main">Skip to content</a>
 <header id="top">
   <div class="wrap nav">
-    <a href="#" class="brand">Mishu Kumar<span>.</span></a>
-    <nav class="links">
+    <a href="#top" class="brand" aria-label="Mishu Kumar, back to top">Mishu Kumar<span>.</span></a>
+    <button class="menu" id="menu" aria-expanded="false" aria-controls="links">Menu</button>
+    <nav class="links" id="links" aria-label="Primary">
       <a href="#work">Work</a>
       <a href="#experience">Experience</a>
       <a href="#credentials">Credentials</a>
       <a href="#insights">Insights</a>
       <a href="#contact">Contact</a>
+      <a class="cv" href="cv.pdf">CV</a>
     </nav>
   </div>
 </header>
+<main id="main">
 
 <!-- HERO -->
 <section class="hero">
@@ -180,7 +229,7 @@
       <a class="btn dark" href="cv.pdf">Download CV</a>
     </div>
   </div>
-  <div class="scroll">Scroll</div>
+  <div class="scroll" aria-hidden="true">Scroll</div>
 </section>
 
 <!-- INTRO + STATS -->
@@ -194,6 +243,9 @@
       <div class="stat"><b>11 mo</b><span>internship experience across risk, research and VC</span></div>
       <div class="stat"><b>Apr 2027</b><span>joining Bajaj Life as Assistant Manager, ORM &amp; AI Governance</span></div>
     </div>
+    <div class="tools reveal" aria-label="Tools I work in">
+      <span>Python</span><span>R</span><span>Excel</span><span>OasisLMF</span><span>PuLP · linear programming</span><span>Monte Carlo</span><span>Panel econometrics</span>
+    </div>
   </div>
 </div>
 
@@ -202,24 +254,32 @@
   <div class="wrap">
     <div class="head reveal">
       <div><div class="eyebrow" style="color:var(--accent)">Selected work</div><h2>Models built from first principles.</h2></div>
-      <a class="more" href="https://github.com/mishu1177karan/finance-models">View all on GitHub <span class="arrow">→</span></a>
+      <a class="more" href="https://github.com/mishu1177karan?tab=repositories" target="_blank" rel="noopener">View all on GitHub <span class="arrow">→</span></a>
     </div>
     <div class="cards">
-      <a class="card reveal" href="https://github.com/mishu1177karan/factor-decay">
+      <a class="card reveal" href="https://github.com/mishu1177karan/factor-decay" target="_blank" rel="noopener">
         <div class="art"><svg viewBox="0 0 400 250" preserveAspectRatio="none"><rect width="400" height="250" fill="#141e29"/><g stroke="#ffffff" stroke-opacity=".08"><path d="M0 62h400M0 124h400M0 186h400"/></g><g fill="#c8a875"><rect x="70" y="60" width="62" height="190" opacity=".9"/><rect x="169" y="131" width="62" height="119" opacity=".6"/><rect x="268" y="165" width="62" height="85" opacity=".35"/></g><path d="M101 60 L200 131 L299 165" fill="none" stroke="#fff" stroke-opacity=".55" stroke-dasharray="4 4"/></svg></div>
-        <div class="body"><span class="tag">Asset pricing · R</span><h3>Factor decay after publication</h3><p>Replicating McLean &amp; Pontiff across 212 anomalies: long-short returns fall ~55% once the paper is published.</p><span class="more">Learn more <span class="arrow">→</span></span></div>
+        <div class="body"><span class="tag">Asset pricing · R</span><h3>Factor decay after publication</h3><p>Replicating McLean &amp; Pontiff across 212 anomalies, with signal fixed effects and two-way clustered standard errors.</p><div class="kpi"><b>−55%</b><span>average long-short return after publication</span></div><span class="more">Learn more <span class="arrow">→</span></span></div>
       </a>
-      <a class="card reveal" href="https://github.com/mishu1177karan/finance-models">
+      <a class="card reveal" href="https://github.com/mishu1177karan/finance-models" target="_blank" rel="noopener">
         <div class="art"><svg viewBox="0 0 400 250" preserveAspectRatio="none"><rect width="400" height="250" fill="#16212d"/><g fill="none" stroke="#c8a875" stroke-opacity=".8"><path d="M0 230 C120 228 200 210 260 160 S350 40 400 20"/><path d="M0 238 C140 236 230 222 290 182 S370 80 400 60" stroke-opacity=".45"/></g><g stroke="#ffffff" stroke-opacity=".08"><path d="M0 62h400M0 124h400M0 186h400"/></g></svg></div>
-        <div class="body"><span class="tag">Catastrophe</span><h3>Catastrophe loss modelling</h3><p>End-to-end OasisLMF run with interpreted OEP and AEP curves, plus an excess-of-loss financial module.</p><span class="more">Learn more <span class="arrow">→</span></span></div>
+        <div class="body"><span class="tag">Reinsurance · OasisLMF</span><h3>Catastrophe loss modelling</h3><p>End-to-end OasisLMF run with interpreted OEP and AEP curves, plus an excess-of-loss financial module.</p><div class="kpi"><b>1,000-yr</b><span>simulated event set behind the XoL layer pricing</span></div><span class="more">Learn more <span class="arrow">→</span></span></div>
       </a>
-      <a class="card reveal" href="https://github.com/mishu1177karan/finance-models/blob/main/SA-CCR%20Model.xlsx">
+      <a class="card reveal" href="https://github.com/mishu1177karan/finance-models/blob/main/SA-CCR%20Model.xlsx" target="_blank" rel="noopener">
         <div class="art"><svg viewBox="0 0 400 250" preserveAspectRatio="none"><rect width="400" height="250" fill="#1b2633"/><g fill="#c8a875"><rect x="40" y="150" width="34" height="100" opacity=".35"/><rect x="92" y="120" width="34" height="130" opacity=".5"/><rect x="144" y="170" width="34" height="80" opacity=".35"/><rect x="196" y="90" width="34" height="160" opacity=".65"/><rect x="248" y="130" width="34" height="120" opacity=".45"/><rect x="300" y="60" width="34" height="190" opacity=".85"/></g></svg></div>
-        <div class="body"><span class="tag">Counterparty credit</span><h3>SA-CCR exposure engine</h3><p>Basel netting-set model across 12 trades, reconciled line by line against the regulatory text.</p><span class="more">Learn more <span class="arrow">→</span></span></div>
+        <div class="body"><span class="tag">Counterparty credit · Excel</span><h3>SA-CCR exposure engine</h3><p>Basel netting-set model across 12 trades in four asset classes, reconciled line by line against BCBS 279.</p><div class="kpi"><b>$23.5M</b><span>exposure at default for the netting set</span></div><span class="more">Learn more <span class="arrow">→</span></span></div>
       </a>
-      <a class="card reveal" href="https://github.com/mishu1177karan/finance-models/blob/main/Vasicek%20interest%20rate%20model.xlsx">
+      <a class="card reveal" href="https://github.com/mishu1177karan/finance-models/blob/main/Vasicek%20interest%20rate%20model.xlsx" target="_blank" rel="noopener">
         <div class="art"><svg viewBox="0 0 400 250" preserveAspectRatio="none" id="paths"><rect width="400" height="250" fill="#121c27"/></svg></div>
-        <div class="body"><span class="tag">Stochastic</span><h3>Vasicek &amp; GBM simulation</h3><p>Mean-reverting short rates and Monte Carlo valuation of a guaranteed maturity benefit vs Black–Scholes.</p><span class="more">Learn more <span class="arrow">→</span></span></div>
+        <div class="body"><span class="tag">Stochastic · Excel</span><h3>Vasicek &amp; GBM simulation</h3><p>Mean-reverting short rates and Monte Carlo valuation of a guaranteed maturity benefit vs Black–Scholes.</p><div class="kpi"><b>252</b><span>daily steps per path, native Excel functions only</span></div><span class="more">Learn more <span class="arrow">→</span></span></div>
+      </a>
+      <a class="card reveal" href="https://github.com/mishu1177karan/jamnagar-crude-slate-model" target="_blank" rel="noopener">
+        <div class="art"><svg viewBox="0 0 400 250" preserveAspectRatio="none"><rect width="400" height="250" fill="#18232f"/><g stroke="#ffffff" stroke-opacity=".08"><path d="M0 62h400M0 124h400M0 186h400"/></g><path d="M0 150h400" stroke="#fff" stroke-opacity=".35" stroke-dasharray="4 4"/><path d="M20 70 C110 72 170 80 215 118 S320 205 380 222" fill="none" stroke="#c8a875" stroke-width="1.8"/><path d="M20 96 C120 98 190 104 240 132 S330 182 380 196" fill="none" stroke="#8fa6bd" stroke-opacity=".6"/><circle cx="262" cy="150" r="4" fill="#c8a875"/></svg></div>
+        <div class="body"><span class="tag">Commodities · Python</span><h3>Jamnagar crude slate model</h3><p>Assay-based refinery linear program comparing Venezuelan Merey with Russian Urals, with a Monte Carlo that re-solves the LP on every draw.</p><div class="kpi"><b>80%</b><span>of 3,000 runs favour Merey at 22 Oct 2026 prices</span></div><span class="more">Learn more <span class="arrow">→</span></span></div>
+      </a>
+      <a class="card reveal" href="https://github.com/mishu1177karan/insurance-market-case" target="_blank" rel="noopener">
+        <div class="art"><svg viewBox="0 0 400 250" preserveAspectRatio="none"><rect width="400" height="250" fill="#131d28"/><g fill="none" stroke="#c8a875"><rect x="60" y="46" width="150" height="170" stroke-opacity=".85"/><rect x="190" y="70" width="150" height="150" stroke-opacity=".4"/></g><g stroke="#ffffff" stroke-opacity=".3"><path d="M80 80h110M80 104h110M80 128h80M80 152h110M80 176h60"/></g><rect x="80" y="62" width="46" height="6" fill="#c8a875"/></svg></div>
+        <div class="body"><span class="tag">Automation · Claude Code</span><h3>Insurance market case briefs</h3><p>A Claude Code skill that turns the day's or week's insurance-industry news into a formatted brief.</p><div class="kpi"><b>2</b><span>output formats per brief: HTML and PDF</span></div><span class="more">Learn more <span class="arrow">→</span></span></div>
       </a>
     </div>
   </div>
@@ -258,6 +318,7 @@
           <li>Associate <small>Insurance Institute of India</small></li>
           <li>Actuarial Common Entrance Test <small>Cleared</small></li>
           <li>Research Analyst <small>SEBI · NISM</small></li>
+          <li>Countering Trade-Based Money Laundering <small>World Bank</small></li>
         </ul>
       </div>
     </div>
@@ -269,15 +330,17 @@
   <div class="wrap">
     <div class="head reveal">
       <div><div class="eyebrow" style="color:var(--accent)">Insights</div><h2>Perspectives on risk &amp; markets.</h2></div>
-      <a class="more" href="https://geopoliticin.wordpress.com/">Read the blog <span class="arrow">→</span></a>
+      <a class="more" href="https://geopoliticin.wordpress.com/" target="_blank" rel="noopener">Read the blog <span class="arrow">→</span></a>
     </div>
     <div class="insights reveal">
-      <a class="insight" href="https://geopoliticin.wordpress.com/2025/10/20/will-stablecoins-become-obsolete-project-agora-type-digital-infrastructure-by-bis-might-redefine-cross-border-payments/"><span class="tag">Payments</span><h3>Will stablecoins become obsolete? Project Agorá and cross-border payments</h3><span class="more" style="border:0;padding:0">Read <span class="arrow">→</span></span></a>
-      <a class="insight" href="https://www.linkedin.com/in/mishu-kumar-gupta-937399227/recent-activity/articles/"><span class="tag">Cyber risk</span><h3>Frontier AI and cyber risk: reading BIS Bulletin No. 129</h3><span class="more" style="border:0;padding:0">Read <span class="arrow">→</span></span></a>
-      <a class="insight" href="https://geopoliticin.wordpress.com/"><span class="tag">Geopolitics</span><h3>The social and economic cost of the Russian invasion</h3><span class="more" style="border:0;padding:0">Read <span class="arrow">→</span></span></a>
+      <a class="insight" href="https://geopoliticin.wordpress.com/2025/10/20/will-stablecoins-become-obsolete-project-agora-type-digital-infrastructure-by-bis-might-redefine-cross-border-payments/" target="_blank" rel="noopener"><span class="tag">Payments</span><h3>Will stablecoins become obsolete? Project Agorá and cross-border payments</h3><span class="more" style="border:0;padding:0">Read <span class="arrow">→</span></span></a>
+      <a class="insight" href="https://www.linkedin.com/in/mishu-kumar-gupta-937399227/recent-activity/articles/" target="_blank" rel="noopener"><span class="tag">Cyber risk</span><h3>Frontier AI and cyber risk: reading BIS Bulletin No. 129</h3><span class="more" style="border:0;padding:0">Read <span class="arrow">→</span></span></a>
+      <a class="insight" href="https://geopoliticin.wordpress.com/" target="_blank" rel="noopener"><span class="tag">Geopolitics</span><h3>The social and economic cost of the Russian invasion</h3><span class="more" style="border:0;padding:0">Read <span class="arrow">→</span></span></a>
     </div>
   </div>
 </section>
+
+</main>
 
 <!-- CONTACT -->
 <section id="contact" class="contact">
@@ -286,8 +349,8 @@
     <h2 class="reveal">Let's talk about risk.</h2>
     <div class="cta reveal">
       <a class="btn fill" href="mailto:mishu1177karan@gmail.com">Email me <span class="arrow">→</span></a>
-      <a class="btn" href="https://www.linkedin.com/in/mishu-kumar-gupta-937399227/">LinkedIn</a>
-      <a class="btn" href="https://github.com/mishu1177karan">GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/mishu-kumar-gupta-937399227/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/mishu1177karan" target="_blank" rel="noopener">GitHub</a>
     </div>
     <footer>
       <span>© 2026 Mishu Kumar · Pune, India</span>
@@ -328,6 +391,18 @@
     p.setAttribute('stroke-opacity',k===0?'.95':'.35');p.setAttribute('stroke-width',k===0?'1.6':'1');
     sv.appendChild(p);
   }
+
+  // Mobile menu
+  const menu=document.getElementById('menu'),links=document.getElementById('links');
+  const setMenu=o=>{links.classList.toggle('open',o);menu.setAttribute('aria-expanded',o);menu.textContent=o?'Close':'Menu'};
+  menu.addEventListener('click',()=>setMenu(!links.classList.contains('open')));
+  links.addEventListener('click',e=>{if(e.target.closest('a'))setMenu(false)});
+  addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+
+  // Highlight the section being read
+  const navA=[...links.querySelectorAll('a[href^="#"]')];
+  const spy=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)navA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('section[id]').forEach(el=>spy.observe(el));
 
   // Fade-in on scroll
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
